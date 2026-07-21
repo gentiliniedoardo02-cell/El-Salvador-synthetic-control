@@ -11,7 +11,7 @@ World Bank WDI for GDP growth and FDI, UNODC for homicide rates (used as a predi
 #What I found
 GDP growth: nothing. No meaningful deviation between El Salvador and its synthetic counterfactual across any specification I tried.
 FDI: there's a hint of something: a positive gap opening up in 2023–2024, but it's not statistically significant (p around 0.2 with tidysynth, 0.159 with augsynth in the specifications where it looks strongest).
-I ran this two ways — tidysynth for the standard synthetic control estimation, and augsynth (the ridge-regularized version) as a cross-check — plus placebo tests and a few robustness checks (dropping outlier countries, adding GDP per capita as a predictor, extending the time window).
+I ran this two ways: tidysynth for the standard synthetic control estimation, and augsynth (the ridge-regularized version) as a cross-check,plus placebo tests and a few robustness checks (dropping outlier countries, adding GDP per capita as a predictor, extending the time window).
 
 #Scripts
 •	el_salvador.R - building the panel from raw WDI/UNODC data
