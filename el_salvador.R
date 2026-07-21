@@ -1,8 +1,4 @@
-# ==================================================
-# El Salvador Synthetic Control
 # Script 01: Data Cleaning
-# ==================================================
-
 library(tidyverse)
 library(readxl)
 
@@ -12,9 +8,7 @@ paesi <- c("El Salvador", "Costa Rica", "Dominican Republic", "Guatemala",
            "Nicaragua", "Panama", "Ecuador", "Honduras",
            "Paraguay", "Belize", "Bolivia", "Peru")
 
-# --------------------------------------------------
 # 1. WDI DATA — 2010-2023 (file originale)
-# --------------------------------------------------
 
 wdi_raw <- read_csv("Data.csv")
 
@@ -38,10 +32,7 @@ wdi <- wdi_raw %>%
          trade, inflation, remittances, tourism) %>%
   mutate(tourism = as.numeric(tourism))
 
-# --------------------------------------------------
 # 2. UNODC HOMICIDE DATA
-# --------------------------------------------------
-
 unodc_raw <- read_excel("data_cts_intentional_homicide.xlsx",
                         sheet = "data_cts_intentional_homicide",
                         skip = 1)
@@ -62,10 +53,7 @@ homicide <- unodc_raw %>%
   rename(country = Country, year = Year) %>%
   filter(year >= 2010, year <= 2023)
 
-# --------------------------------------------------
 # 3. GDP PER CAPITA — LIVELLO (variabile aggiuntiva)
-# --------------------------------------------------
-
 gdppc_raw <- read_csv("gdppc_level.csv")
 
 gdppc <- gdppc_raw %>%
@@ -79,10 +67,7 @@ gdppc <- gdppc_raw %>%
   mutate(gdppc_level = as.numeric(gdppc_level)) %>%
   filter(year >= 2010, year <= 2023) %>%
   select(country, year, gdppc_level)
-
-# --------------------------------------------------
 # 4. MERGE — PANEL 2010-2023
-# --------------------------------------------------
 
 panel <- wdi %>%
   left_join(homicide, by = c("country", "year")) %>%
@@ -93,10 +78,7 @@ glimpse(panel)
 write_csv(panel, "panel_clean.csv")
 cat("Panel 2010-2023 salvato:", nrow(panel), "righe,", n_distinct(panel$country), "paesi\n")
 
-# --------------------------------------------------
 # 5. PANEL ESTESO AL 2024
-# --------------------------------------------------
-
 data24_raw <- read_csv("Data_2024.csv")
 
 panel_24 <- data24_raw %>%
