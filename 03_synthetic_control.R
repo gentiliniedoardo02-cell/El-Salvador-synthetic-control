@@ -1,15 +1,5 @@
-# ==================================================
 # El Salvador Synthetic Control
 # Script 03: Synthetic Control Analysis
-# ==================================================
-#
-# NOTA: tidysynth 0.2.1 richiede dplyr <= 1.1.4
-# Se "Can't supply both `.by` and `.groups`":
-#   remotes::install_version("dplyr", version = "1.1.4") + Restart R
-# NOTA 2: plot_differences() e plot_placebos() hanno un bug interno
-# con questa combinazione di versioni — OMESSI. plot_trends(),
-# grab_significance() e grab_unit_weights() bastano per tutti i risultati.
-
 library(tidyverse)
 library(tidysynth)
 
@@ -21,9 +11,7 @@ paesi <- c("El Salvador", "Costa Rica", "Dominican Republic", "Guatemala",
 
 panel <- read_csv("panel_clean.csv")
 
-# ==================================================
 # PARTE A — BASELINE (2010-2023, 12 paesi)
-# ==================================================
 
 sc_gdp <- panel %>%
   synthetic_control(
@@ -76,9 +64,7 @@ print(sc_fdi_sig)
 
 cat("Parte A (baseline) completata.\n")
 
-# ==================================================
 # PARTE B — ROBUSTEZZA: DONOR POOL SENZA BELIZE
-# ==================================================
 
 panel_rob <- panel %>% filter(country != "Belize")
 
@@ -131,9 +117,7 @@ sc_fdi_rob %>% grab_unit_weights() %>% arrange(desc(weight)) %>% print()
 
 cat("Parte B (robustezza no Belize) completata.\n")
 
-# ==================================================
 # PARTE C — PREDICTOR ESTESI (GDPpc level) + DATI FINO AL 2024
-# ==================================================
 
 panel_final <- read_csv("panel_clean_2024.csv")
 
