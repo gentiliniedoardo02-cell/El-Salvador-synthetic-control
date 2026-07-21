@@ -1,22 +1,13 @@
-# ==================================================
-# El Salvador Synthetic Control
 # Script 02: Exploratory Data Analysis
-# ==================================================
-
 library(tidyverse)
-
 setwd("~/Desktop/el salvador")
 panel <- read_csv("panel_clean.csv")
-
 panel <- panel %>%
   mutate(group = ifelse(country == "El Salvador", "El Salvador", "Altri paesi"))
 
-cols <- c("El Salvador" = "#E63946", "Altri paesi" = "#AAAAAA")
+cols <- c("El Salvador" = "red", "Altri paesi" = "grey")
 
-# --------------------------------------------------
 # 1. GDP GROWTH
-# --------------------------------------------------
-
 ggplot(panel, aes(x = year, y = gdp_growth, group = country, color = group)) +
   geom_line(aes(alpha = group), linewidth = 0.8) +
   geom_vline(xintercept = 2022, linetype = "dashed", color = "black") +
@@ -29,10 +20,7 @@ ggplot(panel, aes(x = year, y = gdp_growth, group = country, color = group)) +
   theme(legend.position = "bottom")
 ggsave("plot_gdp.png", width = 8, height = 5, dpi = 300)
 
-# --------------------------------------------------
 # 2. FDI
-# --------------------------------------------------
-
 ggplot(panel, aes(x = year, y = fdi, group = country, color = group)) +
   geom_line(aes(alpha = group), linewidth = 0.8) +
   geom_vline(xintercept = 2022, linetype = "dashed", color = "black") +
@@ -45,10 +33,7 @@ ggplot(panel, aes(x = year, y = fdi, group = country, color = group)) +
   theme(legend.position = "bottom")
 ggsave("plot_fdi.png", width = 8, height = 5, dpi = 300)
 
-# --------------------------------------------------
 # 3. HOMICIDE RATE
-# --------------------------------------------------
-
 ggplot(panel, aes(x = year, y = homicide_rate, group = country, color = group)) +
   geom_line(aes(alpha = group), linewidth = 0.8) +
   geom_vline(xintercept = 2022, linetype = "dashed", color = "black") +
@@ -61,10 +46,7 @@ ggplot(panel, aes(x = year, y = homicide_rate, group = country, color = group)) 
   theme(legend.position = "bottom")
 ggsave("plot_homicide.png", width = 8, height = 5, dpi = 300)
 
-# --------------------------------------------------
 # 4. REMITTANCES
-# --------------------------------------------------
-
 ggplot(panel, aes(x = year, y = remittances, group = country, color = group)) +
   geom_line(aes(alpha = group), linewidth = 0.8) +
   geom_vline(xintercept = 2022, linetype = "dashed", color = "black") +
